@@ -23,6 +23,7 @@ let handleLoginUsers = async (req, res) => {
     try {
         let users = await userService.handleLoginUsers(req.body);
         await res.cookie("jwt", users.token1, { httpOnly: true })
+        console.log("giá trị đăng nhập", req.body)
 
         return res.status(200).json(users)
 
@@ -266,6 +267,25 @@ let handleGetPostsLike = async (req, res) => {
     }
 }
 
+let handleGetPostsTextSearch = async (req, res) => {
+    try {
+        let users = await userService.handleGetPostsTextSearch(req.body);
+        console.log(req.body)
+        return res.status(200).json(users)
+
+
+
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'server error'
+        })
+
+
+    }
+}
+
 
 
 
@@ -274,5 +294,6 @@ module.exports = {
     // handleCreateUser,
     handleLoginUsers, handleSignup, handleLogout, handleGetOneUser, handleEditOneUser,
     handleCreatePosts, handleGetPosts, handleCreateComment1, handleCreateComment2,
-    handleEditPosts, handleAllGetPosts, handleGetPostsById, handleGetPostsLike
+    handleEditPosts, handleAllGetPosts, handleGetPostsById, handleGetPostsLike,
+    handleGetPostsTextSearch
 }

@@ -80,7 +80,7 @@ let handleLoginUsers = (data) => {
                 console.log("gia trị dang nhap", users)
 
 
-                if (users) {
+                if (!_.isEmpty(users)) {
                     let token = createJWT({
                         email: data.email,
                         password: data.password,
@@ -223,7 +223,7 @@ let handleGetOneUser = (data) => {
                     _id: ObjectId(JSON.parse(data.id))
                 })
                 console.log('gia tri hiện tại', users)
-                if (users) {
+                if (!_.isEmpty(users)) {
 
                     resolve({
                         errCode: 0,
@@ -286,7 +286,7 @@ let handleEditOneUser = (data) => {
 
 
 
-                if (users) {
+                if (!_.isEmpty(users)) {
                     console.log('edit user', users)
                     // users.address = data.address;
                     // // users.email = data.email;
@@ -810,11 +810,79 @@ let handleGetPostsLike = () => {
 }
 
 
+let handleGetPostsTextSearch = (data) => {
+
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            if (!data.text
+
+            ) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing paramater'
+                })
+
+
+
+            } else {
+                console.log('giá trị của text là: ', data.text)
+
+                // await modelsMongo.schema1.index({ parameterName: "text" });
+
+                // let bb = await modelsMongo.ListVideo.createIndexes([
+                //     { key: { movieName: "text" } }
+                // ])
+                // console.log('danh sách la', bb)
+
+
+                const aa = await modelsMongo.Posts.listIndexes()
+                console.log('danh sách la', aa)
+
+                let users = await modelsMongo.Posts.find({
+                    $text: { $search: data.text }
+                    // duration: data.text
+
+                })
+
+                console.log('gia trị cần tìm', users)
+
+                if (!_.isEmpty(users)) {
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'success',
+                        data: users
+                    })
+                } else {
+                    resolve({
+                        errCode: 3,
+                        errMessage: 'Not found',
+
+                    })
+                }
+            }
+
+
+
+
+
+        } catch (e) {
+            reject(e)
+
+
+        }
+    })
+}
+
+
+
+
 
 
 
 module.exports = {
     handleLoginUsers, handleSignup, handleLogout, handleGetOneUser, handleEditOneUser,
     handleCreatePosts, handleGetPosts, handleCreateComment1, handleCreateComment2,
-    handleEditPosts, handleAllGetPosts, handleGetPostsById, handleGetPostsLike
+    handleEditPosts, handleAllGetPosts, handleGetPostsById, handleGetPostsLike,
+    handleGetPostsTextSearch
 }

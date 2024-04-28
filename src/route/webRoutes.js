@@ -28,6 +28,7 @@ const webRoutes = (app) => {
     router.post('/api/create-comment1', userController.handleCreateComment1);
     router.post('/api/create-comment2', userController.handleCreateComment2);
 
+    router.post('/api/get-posts-text-search', userController.handleGetPostsTextSearch);
 
 
 

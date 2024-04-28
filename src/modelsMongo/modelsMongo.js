@@ -12,7 +12,11 @@ const schema1 = new Schema({
     firstName: String,
     lastName: String,
     email: String,
-    postName: String,
+    postName: {
+        type: String,
+        text: true
+
+    },
     postContent: String,
     isLike: {
         type: Boolean,
@@ -47,6 +51,11 @@ const schema1 = new Schema({
 )
 
 const Posts = mongoose.model('Posts', schema1);
+
+const abc = schema1.path('postName').index({ text: true });
+console.log('gia trị abc', abc)
+
+Posts.createIndexes();
 
 const schema2 = new Schema({
     idPosts: String,
