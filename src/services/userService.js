@@ -909,6 +909,165 @@ let handleDeletePosts = (data) => {
     })
 }
 
+let handleCreateUpdatePosts = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.idUser || !data.idPosts) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing parameter'
+                })
+
+            } else {
+                if (!_.isEmpty(data.id)) {
+                    let users = await modelsMongo.IsLikePosts.find({
+                        _id: data.id
+                    })
+
+                    console.log('gia trị cần tìm', users)
+                    if (!_.isEmpty(users)) {
+
+                        await modelsMongo.IsLikePosts.update({
+
+                            isLike: users[0].isLike,
+
+
+                        },
+                            {
+
+                                isLike: data.isLike,
+
+                            })
+
+
+
+                    }
+
+                } else {
+                    await modelsMongo.IsLikePosts.create({
+                        idUser: data.idUser,
+                        idPosts: data.idPosts,
+                        isLike: data.isLike,
+
+
+                    })
+                }
+
+
+
+
+
+                let dataUpdate = await modelsMongo.Posts.find({
+                    _id: data.idPosts,
+
+                })
+                console.log('đã tới công đoạn nay', dataUpdate)
+                if (data.isLike) {
+
+
+                    console.log('đã tới công đoạn nay +1')
+
+                    await modelsMongo.Posts.updateOne({
+                        like: dataUpdate[0].like,
+
+
+
+                    },
+                        {
+                            like: dataUpdate[0].like + 1,
+
+
+                        })
+
+
+                } else {
+                    console.log('đã tới công đoạn nay -1')
+                    await modelsMongo.Posts.updateOne({
+                        like: dataUpdate[0].like,
+
+
+
+                    },
+                        {
+                            like: dataUpdate[0].like - 1,
+
+
+                        })
+
+                }
+
+
+
+                resolve({
+                    errCode: 0,
+                    errMessage: 'success',
+
+                })
+
+            }
+
+
+
+
+        } catch (e) {
+            reject(e)
+
+
+        }
+    })
+}
+
+let handleGetIsLikePosts = (data) => {
+
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            if (!data.idPosts || !data.idUser
+
+            ) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing paramater'
+                })
+
+
+
+            } else {
+                let users = await modelsMongo.IsLikePosts.find({
+                    idPosts: data.idPosts,
+                    idUser: data.idUser
+
+                })
+
+                console.log('gia trị cần tìm', users)
+
+                if (!_.isEmpty(users)) {
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'success',
+                        data: users
+                    })
+                } else {
+                    resolve({
+                        errCode: 3,
+                        errMessage: 'Not found',
+
+                    })
+                }
+            }
+
+
+
+
+
+        } catch (e) {
+            reject(e)
+
+
+        }
+    })
+}
+
 
 
 
@@ -919,5 +1078,5 @@ module.exports = {
     handleLoginUsers, handleSignup, handleLogout, handleGetOneUser, handleEditOneUser,
     handleCreatePosts, handleGetPosts, handleCreateComment1, handleCreateComment2,
     handleEditPosts, handleAllGetPosts, handleGetPostsById, handleGetPostsLike,
-    handleGetPostsTextSearch, handleDeletePosts
+    handleGetPostsTextSearch, handleDeletePosts, handleCreateUpdatePosts, handleGetIsLikePosts
 }

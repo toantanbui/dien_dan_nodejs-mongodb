@@ -305,6 +305,44 @@ let handleDeletePosts = async (req, res) => {
     }
 }
 
+let handleCreateUpdatePosts = async (req, res) => {
+    try {
+        let users = await userService.handleCreateUpdatePosts(req.body);
+        console.log(req.body)
+        return res.status(200).json(users)
+
+
+
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'server error'
+        })
+
+
+    }
+}
+
+let handleGetIsLikePosts = async (req, res) => {
+    try {
+        let users = await userService.handleGetIsLikePosts(req.body);
+        console.log(req.body)
+        return res.status(200).json(users)
+
+
+
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'server error'
+        })
+
+
+    }
+}
+
 
 
 
@@ -314,5 +352,5 @@ module.exports = {
     handleLoginUsers, handleSignup, handleLogout, handleGetOneUser, handleEditOneUser,
     handleCreatePosts, handleGetPosts, handleCreateComment1, handleCreateComment2,
     handleEditPosts, handleAllGetPosts, handleGetPostsById, handleGetPostsLike,
-    handleGetPostsTextSearch, handleDeletePosts
+    handleGetPostsTextSearch, handleDeletePosts, handleCreateUpdatePosts, handleGetIsLikePosts
 }

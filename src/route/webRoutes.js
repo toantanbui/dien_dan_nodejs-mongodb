@@ -30,6 +30,8 @@ const webRoutes = (app) => {
     router.post('/api/create-comment2', userController.handleCreateComment2);
 
     router.post('/api/get-posts-text-search', userController.handleGetPostsTextSearch);
+    router.post('/api/create-update-like-posts', userController.handleCreateUpdatePosts);
+    router.post('/api/get-isLikePosts', userController.handleGetIsLikePosts);
 
 
 

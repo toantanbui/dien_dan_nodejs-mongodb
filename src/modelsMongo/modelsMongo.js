@@ -159,7 +159,7 @@ const schema5 = new Schema({
 
     idUser: String,
     idPosts: String,
-    islike: {
+    isLike: {
         type: Boolean,
         default: false
     }
