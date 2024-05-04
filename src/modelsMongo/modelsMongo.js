@@ -154,4 +154,22 @@ const schema4 = new Schema({
 
 const Users = mongoose.model('Users', schema4);
 
-module.exports = { Posts, Comment1, Comment2, Users }
+const schema5 = new Schema({
+    // id: ObjectId,
+
+    idUser: String,
+    idPosts: String,
+    islike: {
+        type: Boolean,
+        default: false
+    }
+
+
+
+},
+    { timestamps: true }
+)
+
+const IsLikePosts = mongoose.model('IsLikePosts', schema5);
+
+module.exports = { Posts, Comment1, Comment2, Users, IsLikePosts }

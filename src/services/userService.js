@@ -874,6 +874,41 @@ let handleGetPostsTextSearch = (data) => {
     })
 }
 
+let handleDeletePosts = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.id) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing parameter'
+                })
+
+            } else {
+                await modelsMongo.Posts.deleteOne({
+                    _id: data.id
+                })
+
+                resolve({
+                    errCode: 0,
+                    errMessage: 'successful delete',
+
+                })
+
+
+
+            }
+
+
+
+
+        } catch (e) {
+            reject(e)
+
+
+        }
+    })
+}
+
 
 
 
@@ -884,5 +919,5 @@ module.exports = {
     handleLoginUsers, handleSignup, handleLogout, handleGetOneUser, handleEditOneUser,
     handleCreatePosts, handleGetPosts, handleCreateComment1, handleCreateComment2,
     handleEditPosts, handleAllGetPosts, handleGetPostsById, handleGetPostsLike,
-    handleGetPostsTextSearch
+    handleGetPostsTextSearch, handleDeletePosts
 }

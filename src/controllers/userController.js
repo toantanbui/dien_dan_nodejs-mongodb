@@ -286,6 +286,25 @@ let handleGetPostsTextSearch = async (req, res) => {
     }
 }
 
+let handleDeletePosts = async (req, res) => {
+    try {
+        let users = await userService.handleDeletePosts(req.body);
+        console.log(req.body)
+        return res.status(200).json(users)
+
+
+
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'server error'
+        })
+
+
+    }
+}
+
 
 
 
@@ -295,5 +314,5 @@ module.exports = {
     handleLoginUsers, handleSignup, handleLogout, handleGetOneUser, handleEditOneUser,
     handleCreatePosts, handleGetPosts, handleCreateComment1, handleCreateComment2,
     handleEditPosts, handleAllGetPosts, handleGetPostsById, handleGetPostsLike,
-    handleGetPostsTextSearch
+    handleGetPostsTextSearch, handleDeletePosts
 }

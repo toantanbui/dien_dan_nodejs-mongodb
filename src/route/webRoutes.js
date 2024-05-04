@@ -24,6 +24,7 @@ const webRoutes = (app) => {
     router.post('/api/get-posts-by-id', userController.handleGetPostsById);
     router.get('/api/get-all-posts', userController.handleAllGetPosts);
     router.post('/api/edit-posts', userController.handleEditPosts);
+    router.post('/api/delete-posts', userController.handleDeletePosts);
 
     router.post('/api/create-comment1', userController.handleCreateComment1);
     router.post('/api/create-comment2', userController.handleCreateComment2);
