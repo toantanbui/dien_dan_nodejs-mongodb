@@ -13,7 +13,7 @@ app.listen(port, () => {
     console.log(`Moi ban truy cap vao: http://localhost:${port}`)
 })
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'https://testwebhi.xyz/');
     res.setHeader(
         'Access-Control-Allow-Methods',
         'GET, POST, OPTIONS, PUT, PATCH, DELETE'
@@ -26,13 +26,13 @@ app.use((req, res, next) => {
     next();
 });
 
-const corsOptions = {
-    origin: process.env.CONNECT_FRONTEND,
-    credentials: true,            //axios
-    optionSuccessStatus: 200,
-    methods: ["GET", "POST"]
-}
-app.use(cors(corsOptions));
+// const corsOptions = {
+//     origin: process.env.CONNECT_FRONTEND,
+//     credentials: true,            //axios
+//     optionSuccessStatus: 200,
+//     methods: ["GET", "POST"]
+// }
+// app.use(cors(corsOptions));
 
 
 
