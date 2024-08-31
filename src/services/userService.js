@@ -436,6 +436,7 @@ let handleGetPosts = (data) => {
 
                 })
                     .populate('Comment1')
+                    .sort({ createdAt: -1 })
                 // .populate({
                 //     path: 'Comment1',
                 //     populate: { path: 'Comment2' }
