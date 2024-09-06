@@ -5,9 +5,9 @@
 - npm i
 
 3. Cài đặt database
-- Tạo database tên là video, colection là object1
+- Tạo database tên là video, colection là object
 - tạo file .env
-  CONNECT_MONGODB = mongodb://localhost:27017/video
+  CONNECT_MONGODB =mongodb://localhost:27017/dien_dan
 
 4. Chạy dự án
 - npm start
